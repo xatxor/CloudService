@@ -35,6 +35,7 @@ namespace CloudService
             this.zipButton = new System.Windows.Forms.Button();
             this.selectedFilesLabel = new System.Windows.Forms.Label();
             this.selectedFilesTextbox = new System.Windows.Forms.TextBox();
+            this.loadControl = new CloudService.LoadControl();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -96,11 +97,20 @@ namespace CloudService
             this.selectedFilesTextbox.TabIndex = 4;
             this.selectedFilesTextbox.Enter += new System.EventHandler(this.selectedFilesTextbox_Enter);
             // 
+            // loadControl
+            // 
+            this.loadControl.Location = new System.Drawing.Point(0, -1);
+            this.loadControl.Name = "loadControl";
+            this.loadControl.Size = new System.Drawing.Size(529, 364);
+            this.loadControl.TabIndex = 5;
+            this.loadControl.token = "AgAAAABPGUwfAAbUENAGNkexA0nfhkx4wvmr51s";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 361);
+            this.Controls.Add(this.loadControl);
             this.Controls.Add(this.selectedFilesTextbox);
             this.Controls.Add(this.selectedFilesLabel);
             this.Controls.Add(this.zipButton);
@@ -121,6 +131,7 @@ namespace CloudService
         private System.Windows.Forms.Button zipButton;
         private System.Windows.Forms.Label selectedFilesLabel;
         private System.Windows.Forms.TextBox selectedFilesTextbox;
+        private LoadControl loadControl;
     }
 }
 
