@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace CloudService
 {
-    public partial class LoadControl : UserControl
+    public partial class LoginControl : UserControl
     {
         public string token { get; set; }
         private string client_id = "0a653308ad05418b87538c1775634e1f";
         string path;
-        public LoadControl()
+        public LoginControl()
         {
             //"https://oauth.yandex.ru/verification_code#access_token=AgAAAABPGUwfAAbUENAGNkexA0nfhkx4wvmr51s&token_type=bearer&expires_in=31535931"
             InitializeComponent();

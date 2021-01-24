@@ -1,7 +1,7 @@
 ﻿
 namespace CloudService
 {
-    partial class LoadControl
+    partial class LoginControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.

@@ -1,0 +1,189 @@
+﻿
+namespace CloudService
+{
+    partial class MainForm
+    {
+        /// <summary>
+        /// Обязательная переменная конструктора.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Освободить все используемые ресурсы.
+        /// </summary>
+        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Код, автоматически созданный конструктором форм Windows
+
+        /// <summary>
+        /// Требуемый метод для поддержки конструктора — не изменяйте 
+        /// содержимое этого метода с помощью редактора кода.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.openButton = new System.Windows.Forms.Button();
+            this.sendButton = new System.Windows.Forms.Button();
+            this.zipButton = new System.Windows.Forms.Button();
+            this.loadControl = new CloudService.LoginControl();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.loadPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.archiveNameTextbox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabControl.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Multiselect = true;
+            // 
+            // openButton
+            // 
+            this.openButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.openButton.Location = new System.Drawing.Point(15, 159);
+            this.openButton.Name = "openButton";
+            this.openButton.Size = new System.Drawing.Size(145, 42);
+            this.openButton.TabIndex = 0;
+            this.openButton.Text = "Выбрать файлы";
+            this.openButton.UseVisualStyleBackColor = true;
+            this.openButton.Click += new System.EventHandler(this.openButton_Click);
+            // 
+            // sendButton
+            // 
+            this.sendButton.Enabled = false;
+            this.sendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.sendButton.Location = new System.Drawing.Point(15, 296);
+            this.sendButton.Name = "sendButton";
+            this.sendButton.Size = new System.Drawing.Size(145, 42);
+            this.sendButton.TabIndex = 1;
+            this.sendButton.Text = "Отправить";
+            this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
+            // 
+            // zipButton
+            // 
+            this.zipButton.Enabled = false;
+            this.zipButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.zipButton.Location = new System.Drawing.Point(15, 248);
+            this.zipButton.Name = "zipButton";
+            this.zipButton.Size = new System.Drawing.Size(145, 42);
+            this.zipButton.TabIndex = 2;
+            this.zipButton.Text = "Сжать";
+            this.zipButton.UseVisualStyleBackColor = true;
+            this.zipButton.Click += new System.EventHandler(this.zipButton_Click);
+            // 
+            // loadControl
+            // 
+            this.loadControl.Location = new System.Drawing.Point(0, -1);
+            this.loadControl.Name = "loadControl";
+            this.loadControl.Size = new System.Drawing.Size(529, 364);
+            this.loadControl.TabIndex = 5;
+            this.loadControl.token = "AgAAAABPGUwfAAbUEJddsmI91Ehzkvfyq1YTTgE";
+            // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Location = new System.Drawing.Point(171, 21);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(336, 317);
+            this.tabControl.TabIndex = 6;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.loadPanel);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(328, 291);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Выбранные файлы";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // loadPanel
+            // 
+            this.loadPanel.AutoScroll = true;
+            this.loadPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.loadPanel.Location = new System.Drawing.Point(6, 6);
+            this.loadPanel.Name = "loadPanel";
+            this.loadPanel.Size = new System.Drawing.Size(316, 279);
+            this.loadPanel.TabIndex = 0;
+            this.loadPanel.WrapContents = false;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(328, 291);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "На диске";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // archiveNameTextbox
+            // 
+            this.archiveNameTextbox.Location = new System.Drawing.Point(15, 222);
+            this.archiveNameTextbox.Name = "archiveNameTextbox";
+            this.archiveNameTextbox.Size = new System.Drawing.Size(145, 20);
+            this.archiveNameTextbox.TabIndex = 7;
+            this.archiveNameTextbox.TextChanged += new System.EventHandler(this.archiveNameTextbox_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label1.Location = new System.Drawing.Point(12, 204);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 15);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Имя архива";
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(528, 361);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.archiveNameTextbox);
+            this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.loadControl);
+            this.Controls.Add(this.zipButton);
+            this.Controls.Add(this.sendButton);
+            this.Controls.Add(this.openButton);
+            this.Name = "MainForm";
+            this.Text = "MainForm";
+            this.tabControl.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button openButton;
+        private System.Windows.Forms.Button sendButton;
+        private System.Windows.Forms.Button zipButton;
+        private LoginControl loadControl;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.FlowLayoutPanel loadPanel;
+        private System.Windows.Forms.TextBox archiveNameTextbox;
+        private System.Windows.Forms.Label label1;
+    }
+}
+
