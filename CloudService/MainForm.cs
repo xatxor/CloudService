@@ -21,6 +21,19 @@ namespace CloudService
         {
             InitializeComponent();
             archiveNameTextbox.Text = "archive" + DateTime.Today.ToString("d").Replace(".", "") + ".zip";
+            GetFilesFromDisk();
+        }
+        private void GetFilesFromDisk()
+        {
+            Requester req = new Requester(loginControl.token);
+            List<string> list = req.GetFiles();
+            foreach (var str in list)
+            {
+                Label lab = new Label();
+                lab.Width = 2 * filesPanel.Width;
+                lab.Text = str;
+                filesPanel.Controls.Add(lab);
+            }
         }
         private void openButton_Click(object sender, EventArgs e)
         {

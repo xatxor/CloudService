@@ -33,15 +33,17 @@ namespace CloudService
             this.openButton = new System.Windows.Forms.Button();
             this.sendButton = new System.Windows.Forms.Button();
             this.zipButton = new System.Windows.Forms.Button();
-            this.loadControl = new CloudService.LoginControl();
+            this.loginControl = new CloudService.LoginControl();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.loadPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.archiveNameTextbox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.filesPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -83,13 +85,13 @@ namespace CloudService
             this.zipButton.UseVisualStyleBackColor = true;
             this.zipButton.Click += new System.EventHandler(this.zipButton_Click);
             // 
-            // loadControl
+            // loginControl
             // 
-            this.loadControl.Location = new System.Drawing.Point(0, -1);
-            this.loadControl.Name = "loadControl";
-            this.loadControl.Size = new System.Drawing.Size(529, 364);
-            this.loadControl.TabIndex = 5;
-            this.loadControl.token = "AgAAAABPGUwfAAbUEJddsmI91Ehzkvfyq1YTTgE";
+            this.loginControl.Location = new System.Drawing.Point(0, -1);
+            this.loginControl.Name = "loginControl";
+            this.loginControl.Size = new System.Drawing.Size(529, 364);
+            this.loginControl.TabIndex = 5;
+            this.loginControl.token = "AgAAAABPGUwfAAbUEJddsmI91Ehzkvfyq1YTTgE";
             // 
             // tabControl
             // 
@@ -124,6 +126,7 @@ namespace CloudService
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.filesPanel);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -150,6 +153,16 @@ namespace CloudService
             this.label1.TabIndex = 8;
             this.label1.Text = "Имя архива";
             // 
+            // filesPanel
+            // 
+            this.filesPanel.AutoScroll = true;
+            this.filesPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.filesPanel.Location = new System.Drawing.Point(6, 6);
+            this.filesPanel.Name = "filesPanel";
+            this.filesPanel.Size = new System.Drawing.Size(316, 279);
+            this.filesPanel.TabIndex = 1;
+            this.filesPanel.WrapContents = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -158,7 +171,7 @@ namespace CloudService
             this.Controls.Add(this.label1);
             this.Controls.Add(this.archiveNameTextbox);
             this.Controls.Add(this.tabControl);
-            this.Controls.Add(this.loadControl);
+            this.Controls.Add(this.loginControl);
             this.Controls.Add(this.zipButton);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.openButton);
@@ -166,6 +179,7 @@ namespace CloudService
             this.Text = "MainForm";
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,13 +191,14 @@ namespace CloudService
         private System.Windows.Forms.Button openButton;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.Button zipButton;
-        private LoginControl loadControl;
+        private LoginControl loginControl;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.FlowLayoutPanel loadPanel;
         private System.Windows.Forms.TextBox archiveNameTextbox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FlowLayoutPanel filesPanel;
     }
 }
 
