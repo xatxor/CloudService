@@ -94,5 +94,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Disk.SDK.Provider %28.NET 4.0%29\Disk.SDK.Provider %28.NET 4.0%29.csproj">
+      <Project>{d8bb0f49-5f72-414a-8976-19846de293c2}</Project>
+      <Name>Disk.SDK.Provider %28.NET 4.0%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="Disk.Sdk\Disk.SDK.csproj">
+      <Project>{d37d6f1c-812d-4096-b7cd-5ea46b48c4ee}</Project>
+      <Name>Disk.SDK</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -33,14 +33,15 @@ namespace CloudService
             this.openButton = new System.Windows.Forms.Button();
             this.sendButton = new System.Windows.Forms.Button();
             this.zipButton = new System.Windows.Forms.Button();
-            this.loginControl = new CloudService.LoginControl();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.loadPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.filesPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.archiveNameTextbox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.filesPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.loginControl = new CloudService.LoginControl();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -69,7 +70,7 @@ namespace CloudService
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(145, 42);
             this.sendButton.TabIndex = 1;
-            this.sendButton.Text = "Отправить";
+            this.sendButton.Text = "Отправить архив";
             this.sendButton.UseVisualStyleBackColor = true;
             this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
@@ -84,14 +85,6 @@ namespace CloudService
             this.zipButton.Text = "Сжать";
             this.zipButton.UseVisualStyleBackColor = true;
             this.zipButton.Click += new System.EventHandler(this.zipButton_Click);
-            // 
-            // loginControl
-            // 
-            this.loginControl.Location = new System.Drawing.Point(0, -1);
-            this.loginControl.Name = "loginControl";
-            this.loginControl.Size = new System.Drawing.Size(529, 364);
-            this.loginControl.TabIndex = 5;
-            this.loginControl.token = "AgAAAABPGUwfAAbUEJddsmI91Ehzkvfyq1YTTgE";
             // 
             // tabControl
             // 
@@ -135,6 +128,16 @@ namespace CloudService
             this.tabPage2.Text = "На диске";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // filesPanel
+            // 
+            this.filesPanel.AutoScroll = true;
+            this.filesPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.filesPanel.Location = new System.Drawing.Point(6, 6);
+            this.filesPanel.Name = "filesPanel";
+            this.filesPanel.Size = new System.Drawing.Size(316, 279);
+            this.filesPanel.TabIndex = 1;
+            this.filesPanel.WrapContents = false;
+            // 
             // archiveNameTextbox
             // 
             this.archiveNameTextbox.Location = new System.Drawing.Point(15, 222);
@@ -153,21 +156,28 @@ namespace CloudService
             this.label1.TabIndex = 8;
             this.label1.Text = "Имя архива";
             // 
-            // filesPanel
+            // loginControl
             // 
-            this.filesPanel.AutoScroll = true;
-            this.filesPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.filesPanel.Location = new System.Drawing.Point(6, 6);
-            this.filesPanel.Name = "filesPanel";
-            this.filesPanel.Size = new System.Drawing.Size(316, 279);
-            this.filesPanel.TabIndex = 1;
-            this.filesPanel.WrapContents = false;
+            this.loginControl.Location = new System.Drawing.Point(0, -1);
+            this.loginControl.Name = "loginControl";
+            this.loginControl.Size = new System.Drawing.Size(529, 364);
+            this.loginControl.TabIndex = 5;
+            this.loginControl.token = "AgAAAABPGUwfAAbUEJddsmI91Ehzkvfyq1YTTgE";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(15, 130);
+            this.progressBar.Maximum = 2147483647;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(145, 23);
+            this.progressBar.TabIndex = 9;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 361);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.archiveNameTextbox);
             this.Controls.Add(this.tabControl);
@@ -177,6 +187,7 @@ namespace CloudService
             this.Controls.Add(this.openButton);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.tabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -199,6 +210,7 @@ namespace CloudService
         private System.Windows.Forms.TextBox archiveNameTextbox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel filesPanel;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 

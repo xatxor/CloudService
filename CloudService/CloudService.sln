@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudService", "CloudService.csproj", "{89C3C137-8F48-447B-B133-6F47C50B7EA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Disk.SDK", "Disk.Sdk\Disk.SDK.csproj", "{D37D6F1C-812D-4096-B7CD-5EA46B48C4EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Disk.SDK.Provider (.NET 4.0)", "Disk.SDK.Provider (.NET 4.0)\Disk.SDK.Provider (.NET 4.0).csproj", "{D8BB0F49-5F72-414A-8976-19846DE293C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{89C3C137-8F48-447B-B133-6F47C50B7EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89C3C137-8F48-447B-B133-6F47C50B7EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89C3C137-8F48-447B-B133-6F47C50B7EA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D37D6F1C-812D-4096-B7CD-5EA46B48C4EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D37D6F1C-812D-4096-B7CD-5EA46B48C4EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D37D6F1C-812D-4096-B7CD-5EA46B48C4EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D37D6F1C-812D-4096-B7CD-5EA46B48C4EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BB0F49-5F72-414A-8976-19846DE293C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BB0F49-5F72-414A-8976-19846DE293C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BB0F49-5F72-414A-8976-19846DE293C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BB0F49-5F72-414A-8976-19846DE293C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,17 +11,19 @@ namespace CloudService
 {
     public class Zipper
     {
-        public void Add(string path, string archiveName, IEnumerable<string> filenames)
+        public string Zip(string path, string archiveName, IEnumerable<string> filenames)
         {
+            string archivepath = path + "//" + archiveName;
             using (ZipFile zip = new ZipFile())
             {
                 zip.Password = "xxx";
                 foreach (var str in filenames)
                     zip.AddFile(str).FileName = Path.GetFileName(str);
                 zip.Encryption = EncryptionAlgorithm.WinZipAes128;
-                zip.Save(path + "//" + archiveName);
-                MessageBox.Show("Files Zipped!");
+                zip.Save(archivepath);
+                MessageBox.Show("Архивировано!");
             }
+            return archivepath;
         }
     }
 }
