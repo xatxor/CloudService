@@ -18,12 +18,12 @@ namespace CloudService
         {
             Progress = progress;
         }
-        public async void Zip(string path, string archiveName, IEnumerable<string> filenames)
+        public async void Zip(string path, string archiveName, string password,IEnumerable<string> filenames)
         {
             archPath = path + "//" + archiveName;
             using (ZipFile zip = new ZipFile())
             {
-                zip.Password = "xxx";
+                zip.Password = password;
                 foreach (var str in filenames)
                     zip.AddFile(str).FileName = Path.GetFileName(str);
                 zip.Encryption = EncryptionAlgorithm.WinZipAes128;

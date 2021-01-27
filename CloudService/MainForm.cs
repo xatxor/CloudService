@@ -70,7 +70,10 @@ namespace CloudService
         {
             DeleteArchive();
             string path = Path.GetDirectoryName(fileNames.First());
-            zip.Zip(path, archiveNameTextbox.Text, fileNames);
+            string pass = passwordTextbox.Text;
+            if (pass == "" || pass == " ")
+                pass = null;
+            zip.Zip(path, archiveNameTextbox.Text, pass,fileNames);
             archivepath = zip.archPath;
             fileNames = null;
             sendButton.Enabled = true;

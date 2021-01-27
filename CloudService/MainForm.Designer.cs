@@ -42,6 +42,8 @@ namespace CloudService
             this.label1 = new System.Windows.Forms.Label();
             this.loginControl = new CloudService.LoginControl();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.label2 = new System.Windows.Forms.Label();
+            this.passwordTextbox = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -54,7 +56,7 @@ namespace CloudService
             // openButton
             // 
             this.openButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.openButton.Location = new System.Drawing.Point(15, 159);
+            this.openButton.Location = new System.Drawing.Point(15, 119);
             this.openButton.Name = "openButton";
             this.openButton.Size = new System.Drawing.Size(145, 42);
             this.openButton.TabIndex = 0;
@@ -166,17 +168,38 @@ namespace CloudService
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(15, 130);
+            this.progressBar.Location = new System.Drawing.Point(15, 90);
             this.progressBar.Maximum = 2147483647;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(145, 23);
             this.progressBar.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label2.Location = new System.Drawing.Point(12, 164);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(112, 15);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Пароль от архива";
+            // 
+            // passwordTextbox
+            // 
+            this.passwordTextbox.Location = new System.Drawing.Point(15, 182);
+            this.passwordTextbox.MaxLength = 14;
+            this.passwordTextbox.Name = "passwordTextbox";
+            this.passwordTextbox.PasswordChar = '*';
+            this.passwordTextbox.Size = new System.Drawing.Size(145, 20);
+            this.passwordTextbox.TabIndex = 10;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 361);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.passwordTextbox);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.archiveNameTextbox);
@@ -211,6 +234,8 @@ namespace CloudService
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel filesPanel;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox passwordTextbox;
     }
 }
 
