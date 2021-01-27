@@ -208,6 +208,8 @@ namespace CloudService
             this.Controls.Add(this.zipButton);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.openButton);
+            this.MaximumSize = new System.Drawing.Size(544, 400);
+            this.MinimumSize = new System.Drawing.Size(544, 400);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
