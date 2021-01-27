@@ -19,11 +19,12 @@ namespace CloudService
         DiskSdkClient sdk;
         Requester req;
         IEnumerable<string> fileNames;
-        Zipper zip = new Zipper();
+        Zipper zip;
         string archivepath;
         public MainForm()
         {
             InitializeComponent();
+            zip = new Zipper(new AsyncProgress(UpdateProgress));
             req = new Requester(loginControl.token);
             sdk = new DiskSdkClient(loginControl.token);
             archiveNameTextbox.Text = "archive" + DateTime.Today.ToString("d").Replace(".", "") + ".zip";
@@ -69,7 +70,8 @@ namespace CloudService
         {
             DeleteArchive();
             string path = Path.GetDirectoryName(fileNames.First());
-            archivepath = zip.Zip(path, archiveNameTextbox.Text, fileNames);
+            zip.Zip(path, archiveNameTextbox.Text, fileNames);
+            archivepath = zip.archPath;
             fileNames = null;
             sendButton.Enabled = true;
             zipButton.Enabled = false;
@@ -89,6 +91,8 @@ namespace CloudService
         delegate void Del();
         private void UpdateProgress(ulong current, ulong total)
         {
+            if ((int)total > progressBar.Maximum)
+                progressBar.Invoke(new Del(() => progressBar.Maximum = (int)total));
             progressBar.Invoke(new Del(() => progressBar.Value = (int)current));
             progressBar.Invoke(new Del(() => progressBar.Maximum = (int)total));
         }
