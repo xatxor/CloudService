@@ -96,10 +96,6 @@ namespace CloudService
             progressBar.Invoke(new Del(() => progressBar.Value = (int)current));
             progressBar.Invoke(new Del(() => progressBar.Maximum = (int)total));
         }
-        private void UpdateProgress(ulong current)
-        {
-            progressBar.Invoke(new Del(() => progressBar.Value = (int)current));
-        }
         private void SdkOnUploadCompleted(object sender, SdkEventArgs e)
         {
             MessageBox.Show("Архив отправлен!");

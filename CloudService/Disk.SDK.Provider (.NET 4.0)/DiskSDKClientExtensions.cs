@@ -87,20 +87,6 @@ namespace Disk.SDK.Provider
                                             progress.UpdateProgress(current, total);
                                             count = responseStream.Read(buffer, 0, BUFFER_LENGTH);
                                         }
-                                        /*
-                                        const int BUFFER_LENGTH = 4096;
-                                        var total = (ulong)response.ContentLength;
-                                        ulong current = 0;
-                                        var buffer = new byte[BUFFER_LENGTH];
-                                        var count = fileStream.Read(buffer, 0, BUFFER_LENGTH);
-                                        while (count > 0)
-                                        {
-                                            responseStream.Write(buffer, 0, count);
-                                            current += (ulong)count;
-                                            progress.UpdateProgress(current, total);
-                                            count = fileStream.Read(buffer, 0, BUFFER_LENGTH);
-                                        }*/
-
                                         fileStream.Dispose();
                                     }
                                 }

@@ -34,64 +34,6 @@ namespace CloudService
             string dinfo = sr.ReadToEnd();
             return Xml(dinfo);
         }
-        public void LoadFile(Stream fileStream)
-        {
-            //request = WebRequest.CreateHttp(url);
-            //var sha = SHA256.Create;
-            /*request.Method = "PUT";
-            request.ContentLength = str.Length;
-            request.Accept =
-            request.ReadWriteTimeout = -1;
-            request.Timeout = -1;
-            request.Headers["Authorization"] = "OAuth " + token;
-            request.Headers["Etag"] = "";
-            request.Headers["Sha256"] = "";
-            request.ServicePoint.Expect100Continue = true;
-            request.ContentType = "application/binary";
-            request.ContentLength = 1;*/
-
-
-            /* вызывает ошибку конфликт 409
-            request.Accept = 
-            request.Headers["Depth"] = "1";
-            request.Headers["Authorization"] = "OAuth " + token;
-            request.Method = "PUT";
-            request.AllowWriteStreamBuffering = false;
-            request.SendChunked = true;
-            request.BeginGetRequestStream(
-                getRequestStreamResult =>
-                {
-                    var getRequestStreamRequest = (HttpWebRequest)getRequestStreamResult.AsyncState;
-                    using (var requestStream = getRequestStreamRequest.EndGetRequestStream(getRequestStreamResult))
-                    {
-                        const int BUFFER_LENGTH = 4096;
-                        var total = (ulong)fileStream.Length;
-                        ulong current = 0;
-                        var buffer = new byte[BUFFER_LENGTH];
-                        var count = fileStream.Read(buffer, 0, BUFFER_LENGTH);
-                        while (count > 0)
-                        {
-                            requestStream.Write(buffer, 0, count);
-                            current += (ulong)count;
-                            count = fileStream.Read(buffer, 0, BUFFER_LENGTH);
-                        }
-
-                        fileStream.Dispose();
-                    }
-
-                    getRequestStreamRequest.BeginGetResponse(
-                        getResponseResult =>
-                        {
-                            var getResponseRequest = (HttpWebRequest)getResponseResult.AsyncState;
-                            using (getResponseRequest.EndGetResponse(getResponseResult))
-                            {
-                            }
-                        },
-                        getRequestStreamRequest);
-                },
-                    request);*/
-
-        }
         private List<string> Xml(string xml)
         {
             List<string> hrefs = new List<string>();
