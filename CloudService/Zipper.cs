@@ -26,7 +26,7 @@ namespace CloudService
                 zip.Password = password;
                 foreach (var str in filenames)
                     zip.AddFile(str).FileName = Path.GetFileName(str);
-                zip.Encryption = EncryptionAlgorithm.WinZipAes128;
+                zip.Encryption = EncryptionAlgorithm.WinZipAes256;
                 zip.SaveProgress += SaveProgress;
                 zip.UseZip64WhenSaving = Zip64Option.AsNecessary;
                 await Task.Run(() => zip.Save(archPath));
