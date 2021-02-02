@@ -27,7 +27,7 @@ namespace CloudService
             zip = new Zipper(new AsyncProgress(UpdateProgress));
             req = new Requester(loginControl.token);
             sdk = new DiskSdkClient(loginControl.token);
-            archiveNameTextbox.Text = "archive" + DateTime.Today.ToString("d").Replace(".", "") + ".zip";
+            archiveNameTextbox.Text = "archive";
             GetFilesFromDisk();
             ButtonsOff();
         }
@@ -73,7 +73,9 @@ namespace CloudService
             string pass = passwordTextbox.Text;
             if (pass == "" || pass == " ")
                 pass = null;
-            zip.Zip(path, archiveNameTextbox.Text, pass,fileNames);
+            string archiveFullName = archiveNameTextbox.Text + "_" +
+                DateTime.Today.ToString("d").Replace(".", "") + ".zip";
+            zip.Zip(path, archiveFullName, pass,fileNames);
             archivepath = zip.archPath;
             fileNames = null;
             sendButton.Enabled = true;
@@ -106,7 +108,7 @@ namespace CloudService
         private void archiveNameTextbox_TextChanged(object sender, EventArgs e)
         {
             string name = archiveNameTextbox.Text;
-            if (name.Length < 5 || name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1 || name.Substring(name.Length-4) != ".zip") 
+            if (name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1) 
             { 
                 archiveNameTextbox.ForeColor = Color.Red;
                 ButtonsOff();
