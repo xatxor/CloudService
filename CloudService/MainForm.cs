@@ -21,30 +21,40 @@ namespace CloudService
         IEnumerable<string> fileNames;
         Zipper zip;
         string archivepath;
+        bool isArchNameCorrect = true;
+        bool isDiskPathCorrect = true;
         public MainForm()
         {
             InitializeComponent();
             zip = new Zipper(new AsyncProgress(UpdateProgress));
             req = new Requester(loginControl.token);
             sdk = new DiskSdkClient(loginControl.token);
+            archivePathOnDiskTextbox.Text = "/";
             archiveNameTextbox.Text = "archive";
             GetFilesFromDisk();
-            ButtonsOff();
+            ChangeButtonsStatus();
         }
         private void GetFilesFromDisk()
         {
-            List<string> list = req.GetFiles();
-            foreach (var str in list)
+            try
             {
-                Label lab = new Label();
-                lab.Width = filesPanel.Width-10;
-                lab.Text = str;
-                filesPanel.Controls.Add(lab);
+                List<string> list = req.GetFiles();
+                foreach (var str in list)
+                {
+                    Label lab = new Label();
+                    lab.Width = filesPanel.Width - 10;
+                    lab.Text = str;
+                    filesPanel.Controls.Add(lab);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Возникла ошибка: " + e.Message);
             }
         }
         private void openButton_Click(object sender, EventArgs e)
         {
-            ButtonsOff();
+            ChangeButtonsStatus();
             loadPanel.Controls.Clear();
             openFileDialog1.RestoreDirectory = true;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -58,8 +68,7 @@ namespace CloudService
                     lab.Text = Path.GetFileName(str);
                     loadPanel.Controls.Add(lab);
                 }
-                zipButton.Enabled = true;
-                sendButton.Enabled = false;
+                ChangeButtonsStatus();
             }
         }
         private void UpdateTabTitle()
@@ -78,20 +87,19 @@ namespace CloudService
             zip.Zip(path, archiveFullName, pass,fileNames);
             archivepath = zip.archPath;
             fileNames = null;
-            sendButton.Enabled = true;
-            zipButton.Enabled = false;
+            ChangeButtonsStatus();
         }
         private void sendButton_Click(object sender, EventArgs e)
         {
             if (archivepath != null)
             {
                 var arhstream = new FileStream(archivepath, FileMode.Open);
-                sdk.UploadFileAsync(Path.GetFileName(archivepath), arhstream, new AsyncProgress(this.UpdateProgress), this.SdkOnUploadCompleted);
+                string archivePathOnDisk = archivePathOnDiskTextbox.Text + Path.GetFileName(archivepath);
+                sdk.UploadFileAsync(archivePathOnDisk, arhstream, new AsyncProgress(this.UpdateProgress), this.SdkOnUploadCompleted);
             }
             else
                 MessageBox.Show("Архивируйте файлы");
-            zipButton.Enabled = false;
-            sendButton.Enabled = false;
+            ChangeButtonsStatus();
         }
         delegate void Del();
         private void UpdateProgress(ulong current, ulong total)
@@ -103,7 +111,13 @@ namespace CloudService
         }
         private void SdkOnUploadCompleted(object sender, SdkEventArgs e)
         {
-            MessageBox.Show("Архив отправлен!");
+            if (e.Error == null)
+            {
+                DeleteArchive();
+                MessageBox.Show("Архив отправлен!");
+            }
+            else
+                MessageBox.Show("Возникла ошибка, может указанного каталога не существует?");
         }
         private void archiveNameTextbox_TextChanged(object sender, EventArgs e)
         {
@@ -111,28 +125,48 @@ namespace CloudService
             if (name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1) 
             { 
                 archiveNameTextbox.ForeColor = Color.Red;
-                ButtonsOff();
+                isArchNameCorrect = false;
             }
             else
             {
                 archiveNameTextbox.ForeColor = Color.Black;
-                ButtonsOn();
+                isArchNameCorrect = true;
             }
+            ChangeButtonsStatus();
         }
-        private void ButtonsOff()
+        private void archivePathOnDiskTextbox_TextChanged(object sender, EventArgs e)
         {
-            zipButton.Enabled = false;
-            sendButton.Enabled = false;
+            string path = archivePathOnDiskTextbox.Text;
+            if (!path.EndsWith("/"))
+            {
+                archivePathOnDiskTextbox.ForeColor = Color.Red;
+                isDiskPathCorrect = false;
+            }
+            else
+            {
+                archivePathOnDiskTextbox.ForeColor = Color.Black;
+                isDiskPathCorrect = true;
+            }
+            ChangeButtonsStatus();
         }
-        private void ButtonsOn()
+        private void ChangeButtonsStatus()
         {
-            zipButton.Enabled = true;
-            sendButton.Enabled = true;
+            if (isArchNameCorrect && fileNames != null)
+                zipButton.Enabled = true;
+            else
+                zipButton.Enabled = false;
+            if (isDiskPathCorrect && archivepath != null)
+                sendButton.Enabled = true;
+            else
+                sendButton.Enabled = false;
         }
         private void DeleteArchive()
         {
             if (archivepath != null)
+            {
                 File.Delete(archivepath);
+                archivepath = null;
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

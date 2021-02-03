@@ -120,39 +120,61 @@ namespace Disk.SDK.Provider
             request.Method = WebdavResources.PutMethod;
             request.AllowWriteStreamBuffering = false;
             request.SendChunked = true;
-            request.BeginGetRequestStream(
+            try
+            {
+                request.BeginGetRequestStream(
                     getRequestStreamResult =>
                     {
                         var getRequestStreamRequest = (HttpWebRequest)getRequestStreamResult.AsyncState;
-                        using (var requestStream = getRequestStreamRequest.EndGetRequestStream(getRequestStreamResult))
+                        try
                         {
-                            const int BUFFER_LENGTH = 4096;
-                            var total = (ulong)fileStream.Length;
-                            ulong current = 0;
-                            var buffer = new byte[BUFFER_LENGTH];
-                            var count = fileStream.Read(buffer, 0, BUFFER_LENGTH);
-                            while (count > 0)
+                            using (var requestStream = getRequestStreamRequest.EndGetRequestStream(getRequestStreamResult))
                             {
-                                requestStream.Write(buffer, 0, count);
-                                current += (ulong)count;
-                                progress.UpdateProgress(current, total);
-                                count = fileStream.Read(buffer, 0, BUFFER_LENGTH);
-                            }
-                            fileStream.Dispose();
-                        }
-
-                        getRequestStreamRequest.BeginGetResponse(
-                            getResponseResult =>
-                            {
-                                var getResponseRequest = (HttpWebRequest)getResponseResult.AsyncState;
-                                using (getResponseRequest.EndGetResponse(getResponseResult))
+                                const int BUFFER_LENGTH = 4096;
+                                var total = (ulong)fileStream.Length;
+                                ulong current = 0;
+                                var buffer = new byte[BUFFER_LENGTH];
+                                var count = fileStream.Read(buffer, 0, BUFFER_LENGTH);
+                                while (count > 0)
                                 {
-                                    completeCallback.SafeInvoke(sdkClient, new SdkEventArgs(null));
+                                    requestStream.Write(buffer, 0, count);
+                                    current += (ulong)count;
+                                    progress.UpdateProgress(current, total);
+                                    count = fileStream.Read(buffer, 0, BUFFER_LENGTH);
                                 }
-                            },
-                            getRequestStreamRequest);
+
+                                fileStream.Dispose();
+                            }
+
+                            getRequestStreamRequest.BeginGetResponse(
+                                getResponseResult =>
+                                {
+                                    var getResponseRequest = (HttpWebRequest)getResponseResult.AsyncState;
+                                    try
+                                    {
+                                        using (getResponseRequest.EndGetResponse(getResponseResult))
+                                        {
+                                            completeCallback.SafeInvoke(sdkClient, new SdkEventArgs(null));
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        completeCallback.SafeInvoke(sdkClient, new SdkEventArgs(HttpUtilities.ProcessException(ex)));
+                                    }
+                                },
+                                getRequestStreamRequest);
+                        }
+                        catch (Exception ex)
+                        {
+                            completeCallback.SafeInvoke(sdkClient, new SdkEventArgs(HttpUtilities.ProcessException(ex)));
+                        }
                     },
                     request);
+            }
+            catch (Exception ex)
+            {
+                completeCallback.SafeInvoke(sdkClient, new SdkEventArgs(HttpUtilities.ProcessException(ex)));
+            }
         }
     }
 }

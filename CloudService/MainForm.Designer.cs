@@ -40,10 +40,12 @@ namespace CloudService
             this.filesPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.archiveNameTextbox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.loginControl = new CloudService.LoginControl();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.passwordTextbox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.archivePathOnDiskTextbox = new System.Windows.Forms.TextBox();
+            this.loginControl = new CloudService.LoginControl();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -56,7 +58,7 @@ namespace CloudService
             // openButton
             // 
             this.openButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.openButton.Location = new System.Drawing.Point(15, 119);
+            this.openButton.Location = new System.Drawing.Point(15, 80);
             this.openButton.Name = "openButton";
             this.openButton.Size = new System.Drawing.Size(145, 42);
             this.openButton.TabIndex = 0;
@@ -127,7 +129,7 @@ namespace CloudService
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(328, 291);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "На диске";
+            this.tabPage2.Text = "Корневая папка диска";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // filesPanel
@@ -158,17 +160,9 @@ namespace CloudService
             this.label1.TabIndex = 8;
             this.label1.Text = "Имя архива";
             // 
-            // loginControl
-            // 
-            this.loginControl.Location = new System.Drawing.Point(0, -1);
-            this.loginControl.Name = "loginControl";
-            this.loginControl.Size = new System.Drawing.Size(529, 364);
-            this.loginControl.TabIndex = 5;
-            this.loginControl.token = "AgAAAABPGUwfAAbUEJddsmI91Ehzkvfyq1YTTgE";
-            // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(15, 90);
+            this.progressBar.Location = new System.Drawing.Point(15, 51);
             this.progressBar.Maximum = 2147483647;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(145, 23);
@@ -193,11 +187,40 @@ namespace CloudService
             this.passwordTextbox.Size = new System.Drawing.Size(145, 20);
             this.passwordTextbox.TabIndex = 10;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label3.Location = new System.Drawing.Point(12, 123);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(134, 15);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Путь к папке на диске";
+            // 
+            // archivePathOnDiskTextbox
+            // 
+            this.archivePathOnDiskTextbox.Location = new System.Drawing.Point(15, 142);
+            this.archivePathOnDiskTextbox.MaxLength = 100;
+            this.archivePathOnDiskTextbox.Name = "archivePathOnDiskTextbox";
+            this.archivePathOnDiskTextbox.Size = new System.Drawing.Size(145, 20);
+            this.archivePathOnDiskTextbox.TabIndex = 12;
+            this.archivePathOnDiskTextbox.TextChanged += new System.EventHandler(this.archivePathOnDiskTextbox_TextChanged);
+            // 
+            // loginControl
+            // 
+            this.loginControl.Location = new System.Drawing.Point(0, -1);
+            this.loginControl.Name = "loginControl";
+            this.loginControl.Size = new System.Drawing.Size(529, 364);
+            this.loginControl.TabIndex = 5;
+            this.loginControl.token = "AgAAAABPGUwfAAbUEJddsmI91Ehzkvfyq1YTTgE";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 361);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.archivePathOnDiskTextbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.passwordTextbox);
             this.Controls.Add(this.progressBar);
@@ -238,6 +261,8 @@ namespace CloudService
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox passwordTextbox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox archivePathOnDiskTextbox;
     }
 }
 
