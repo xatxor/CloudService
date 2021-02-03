@@ -26,9 +26,11 @@ namespace CloudService
         public MainForm()
         {
             InitializeComponent();
+            var logform = new LoginForm();
+            logform.ShowDialog();
             zip = new Zipper(new AsyncProgress(UpdateProgress));
-            req = new Requester(loginControl.token);
-            sdk = new DiskSdkClient(loginControl.token);
+            req = new Requester(logform.token);
+            sdk = new DiskSdkClient(logform.token);
             archivePathOnDiskTextbox.Text = "/";
             archiveNameTextbox.Text = "archive";
             GetFilesFromDisk();

@@ -45,7 +45,6 @@ namespace CloudService
             this.passwordTextbox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.archivePathOnDiskTextbox = new System.Windows.Forms.TextBox();
-            this.loginControl = new CloudService.LoginControl();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -206,14 +205,6 @@ namespace CloudService
             this.archivePathOnDiskTextbox.TabIndex = 12;
             this.archivePathOnDiskTextbox.TextChanged += new System.EventHandler(this.archivePathOnDiskTextbox_TextChanged);
             // 
-            // loginControl
-            // 
-            this.loginControl.Location = new System.Drawing.Point(0, -1);
-            this.loginControl.Name = "loginControl";
-            this.loginControl.Size = new System.Drawing.Size(529, 364);
-            this.loginControl.TabIndex = 5;
-            this.loginControl.token = "AgAAAABPGUwfAAbUEJddsmI91Ehzkvfyq1YTTgE";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -227,7 +218,6 @@ namespace CloudService
             this.Controls.Add(this.label1);
             this.Controls.Add(this.archiveNameTextbox);
             this.Controls.Add(this.tabControl);
-            this.Controls.Add(this.loginControl);
             this.Controls.Add(this.zipButton);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.openButton);
@@ -250,7 +240,6 @@ namespace CloudService
         private System.Windows.Forms.Button openButton;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.Button zipButton;
-        private LoginControl loginControl;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
