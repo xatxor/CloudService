@@ -14,13 +14,18 @@ namespace CloudService
     {
         IProgress Progress;
         public string archPath;
+        public delegate void Dgt();
+        public event Dgt Completed;
+        public Zipper()
+        {
+        }
         public Zipper(IProgress progress) 
         {
             Progress = progress;
         }
         public async void Zip(string path, string archiveName, string password,IEnumerable<string> filenames)
         {
-            archPath = path + "//" + archiveName;
+            archPath = path + "\\" + archiveName;
             using (ZipFile zip = new ZipFile())
             {
                 zip.Password = password;
@@ -34,12 +39,21 @@ namespace CloudService
         }
         public async void SaveProgress(object sender, SaveProgressEventArgs e)
         {
-            if (e.EventType == ZipProgressEventType.Saving_AfterWriteEntry)
-                await Task.Run(() => Progress.UpdateProgress((ulong)(e.EntriesSaved * 100 / e.EntriesTotal), 100));
-            else if (e.EventType == ZipProgressEventType.Saving_Completed)
+            if (Progress != null)
             {
-                await Task.Run(() => Progress.UpdateProgress(100, 100));
-                MessageBox.Show("Архивировано!");
+                if (e.EventType == ZipProgressEventType.Saving_AfterWriteEntry)
+                    await Task.Run(() => Progress.UpdateProgress((ulong)(e.EntriesSaved * 100 / e.EntriesTotal), 100));
+                else if (e.EventType == ZipProgressEventType.Saving_Completed)
+                {
+                    await Task.Run(() => Progress.UpdateProgress(100, 100));
+                    Completed?.Invoke();
+                    MessageBox.Show("Архивировано!");
+                }
+            }
+            else
+            {
+                if (e.EventType == ZipProgressEventType.Saving_Completed)
+                    Completed?.Invoke();
             }
         }
     }

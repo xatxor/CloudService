@@ -23,10 +23,11 @@ namespace CloudService
         string archivepath;
         bool isArchNameCorrect = true;
         bool isDiskPathCorrect = true;
+        LoginForm logform;
         public MainForm()
         {
             InitializeComponent();
-            var logform = new LoginForm();
+            logform = new LoginForm();
             logform.ShowDialog();
             zip = new Zipper(new AsyncProgress(UpdateProgress));
             req = new Requester(logform.token);
@@ -35,6 +36,17 @@ namespace CloudService
             archiveNameTextbox.Text = "archive";
             GetFilesFromDisk();
             ChangeButtonsStatus();
+            string[] args = Environment.GetCommandLineArgs();
+            if (args != null)
+            {
+                CommandLineArgsHandler handler = new CommandLineArgsHandler(logform.token, args[1], args[2], Convert.ToInt32(args[3]), args[4], args[5]);
+                handler.Completed += CommandHandlerCompleted;
+                handler.Start();
+            }
+        }
+        private void CommandHandlerCompleted()
+        {
+            MessageBox.Show("Указанные в командной строке файлы отправлены!");
         }
         private void GetFilesFromDisk()
         {
@@ -170,7 +182,6 @@ namespace CloudService
                 archivepath = null;
             }
         }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DeleteArchive();
