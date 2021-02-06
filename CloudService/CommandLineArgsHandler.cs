@@ -16,8 +16,9 @@ namespace CloudService
         Requester req;
         string diskpath, archname, password, folderpath, archpath;
         int days;
-        public delegate void CompletedDgt();
-        public event CompletedDgt Completed;
+        public delegate void Dgt();
+        public event Dgt Completed;
+        public event Dgt Error;
         public CommandLineArgsHandler(string token, string diskpathin, string archnamein, int daysin, string passwordin, string folderpathin)
         {
             zip = new Zipper();
@@ -39,6 +40,8 @@ namespace CloudService
                 zip.Zip(folderpath, archname, password, Directory.GetFiles(folderpath));
                 archpath = zip.archPath;
             }
+            else
+                Error?.Invoke();
         }
         private void SendAfterZip()
         {
@@ -47,9 +50,14 @@ namespace CloudService
         }
         private void SdkOnUploadCompleted(object sender, SdkEventArgs e)
         {
-            File.Delete(archpath);
-            GetList();
-            Completed?.Invoke();
+            if (e.Error == null)
+            {
+                File.Delete(archpath);
+                GetList();
+                Completed?.Invoke();
+            }
+            else
+                Error?.Invoke();
         }
         private void GetList()
         {

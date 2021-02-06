@@ -37,16 +37,23 @@ namespace CloudService
             ChangeButtonsStatus();
             GetFilesFromDisk();
             req.InfoCompleted += InfoCompleted;
+            req.Error += Error;
             string[] args = Environment.GetCommandLineArgs();
-            if (args != null)
+            if (args.Length > 1)
             {
                 loadinglabel.Visible = true;
                 CommandLineArgsHandler handler = new CommandLineArgsHandler(logform.token, args[1], args[2], Convert.ToInt32(args[3]), args[4], args[5]);
+                handler.Error += Error;
                 handler.Completed += CommandHandlerCompleted;
                 handler.StartAndZip();
             }
         }
         delegate void Del();
+        private void Error()
+        {
+            loadinglabel.Visible = false;
+            MessageBox.Show("При обращению к диску возникла ошибка, проверьте все введенные данные");
+        }
         private void CommandHandlerCompleted()
         {
             loadinglabel.Invoke(new Del(() => loadinglabel.Visible = false));

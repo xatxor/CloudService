@@ -18,6 +18,7 @@ namespace CloudService
         DiskSdkClient sdk;
         public IEnumerable<DiskItemInfo> Files;
         public delegate void Dgt();
+        public event Dgt Error;
         public event Dgt InfoCompleted;
         public event Dgt DeleteCompleted;
         public Requester(string authtoken)
@@ -37,6 +38,8 @@ namespace CloudService
                 Files = e.Result;
                 InfoCompleted?.Invoke();
             }
+            else
+                Error?.Invoke();
         }
         public void DeleteOldFiles(int days)
         {
