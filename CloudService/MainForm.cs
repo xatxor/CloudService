@@ -34,32 +34,40 @@ namespace CloudService
             sdk = new DiskSdkClient(logform.token);
             archivePathOnDiskTextbox.Text = "/";
             archiveNameTextbox.Text = "archive";
-            GetFilesFromDisk();
             ChangeButtonsStatus();
+            GetFilesFromDisk();
+            req.InfoCompleted += InfoCompleted;
             string[] args = Environment.GetCommandLineArgs();
             if (args != null)
             {
+                loadinglabel.Visible = true;
                 CommandLineArgsHandler handler = new CommandLineArgsHandler(logform.token, args[1], args[2], Convert.ToInt32(args[3]), args[4], args[5]);
                 handler.Completed += CommandHandlerCompleted;
-                handler.Start();
+                handler.StartAndZip();
             }
         }
-        private void CommandHandlerCompleted()
+        delegate void Del();
+        private async void CommandHandlerCompleted()
         {
+            loadinglabel.Invoke(new Del(() => loadinglabel.Visible = false));
             MessageBox.Show("Указанные в командной строке файлы отправлены!");
+        }
+        private void InfoCompleted()
+        {
+            IEnumerable<DiskItemInfo> list = req.Files;
+            foreach (var file in list)
+            {
+                Label lab = new Label();
+                lab.Width = filesPanel.Width - 10;
+                lab.Text = file.DisplayName;
+                filesPanel.Controls.Add(lab);
+            }
         }
         private void GetFilesFromDisk()
         {
             try
             {
-                List<string> list = req.GetFiles();
-                foreach (var str in list)
-                {
-                    Label lab = new Label();
-                    lab.Width = filesPanel.Width - 10;
-                    lab.Text = str;
-                    filesPanel.Controls.Add(lab);
-                }
+                req.GetList();
             }
             catch (Exception e)
             {
@@ -115,7 +123,6 @@ namespace CloudService
                 MessageBox.Show("Архивируйте файлы");
             ChangeButtonsStatus();
         }
-        delegate void Del();
         private void UpdateProgress(ulong current, ulong total)
         {
             if ((int)total > progressBar.Maximum)

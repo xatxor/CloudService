@@ -45,6 +45,7 @@ namespace CloudService
             this.passwordTextbox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.archivePathOnDiskTextbox = new System.Windows.Forms.TextBox();
+            this.loadinglabel = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -205,11 +206,21 @@ namespace CloudService
             this.archivePathOnDiskTextbox.TabIndex = 12;
             this.archivePathOnDiskTextbox.TextChanged += new System.EventHandler(this.archivePathOnDiskTextbox_TextChanged);
             // 
+            // loadinglabel
+            // 
+            this.loadinglabel.Location = new System.Drawing.Point(12, 15);
+            this.loadinglabel.Name = "loadinglabel";
+            this.loadinglabel.Size = new System.Drawing.Size(148, 33);
+            this.loadinglabel.TabIndex = 14;
+            this.loadinglabel.Text = "Идет загрузка файлов из командной строки...";
+            this.loadinglabel.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 361);
+            this.Controls.Add(this.loadinglabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.archivePathOnDiskTextbox);
             this.Controls.Add(this.label2);
@@ -252,6 +263,7 @@ namespace CloudService
         private System.Windows.Forms.TextBox passwordTextbox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox archivePathOnDiskTextbox;
+        private System.Windows.Forms.Label loadinglabel;
     }
 }
 

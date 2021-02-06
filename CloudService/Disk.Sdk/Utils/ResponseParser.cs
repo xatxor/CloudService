@@ -68,10 +68,6 @@ namespace Disk.SDK.Utils
                                     reader.Read();
                                     itemInfo.DisplayName = reader.Value;
                                     break;
-                                case "d:getcontentlength":
-                                    reader.Read();
-                                    itemInfo.ContentLength = int.Parse(reader.Value);
-                                    break;
                                 case "d:getcontenttype":
                                     reader.Read();
                                     itemInfo.ContentType = reader.Value;

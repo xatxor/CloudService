@@ -8,47 +8,50 @@ using System.Net;
 using System.Net.Http;
 using System.Xml;
 using System.Security.Cryptography;
+using Disk.SDK;
 
 namespace CloudService
 {
     public class Requester
     {
         public string token;
-        HttpWebRequest request;
-        string url = "https://webdav.yandex.ru/";
+        DiskSdkClient sdk;
+        public IEnumerable<DiskItemInfo> Files;
+        public delegate void Dgt();
+        public event Dgt InfoCompleted;
+        public event Dgt DeleteCompleted;
         public Requester(string authtoken)
         {
             token = authtoken;
+            sdk = new DiskSdkClient(authtoken);
         }
-        public List<string> GetFiles()
+        public void GetList(string path = "/")
         {
-            request = WebRequest.CreateHttp(url);
-            request.Method = "PROPFIND";
-            request.Accept = "*/*";
-            request.Headers["Depth"] = "1";
-            request.Headers["Authorization"] = "OAuth " + token;
-            request.ContentType = "text/xml; encoding='utf-8";
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            StreamReader sr = new StreamReader(response.GetResponseStream());
-            string dinfo = sr.ReadToEnd();
-            return Xml(dinfo);
+            sdk.GetListCompleted += this.GetListCompleted;
+            sdk.GetListAsync(path);
         }
-        private List<string> Xml(string xml)
+        private void GetListCompleted(object sender, GenericSdkEventArgs<IEnumerable<DiskItemInfo>> e)
         {
-            List<string> hrefs = new List<string>();
-            XmlDocument xDoc = new XmlDocument();
-            xDoc.LoadXml(xml);
-            XmlElement xRoot = xDoc.DocumentElement;
-            foreach (XmlNode response in xRoot)
+            if (e.Error == null)
             {
-                foreach (XmlNode href in response.ChildNodes)
-                {
-                    if (href.Name == "d:href" && href.InnerText != "/")
-                        hrefs.Add(href.InnerText.Substring(1));
-                }
+                Files = e.Result;
+                InfoCompleted?.Invoke();
             }
-            return hrefs;
+        }
+        public void DeleteOldFiles(int days)
+        {
+            if (Files != null)
+            {
+                foreach (var file in Files)
+                {
+                    if ((DateTime.Now - file.LastModified).TotalDays > days)
+                    {
+                        sdk.RemoveAsync(file.OriginalFullPath);
+                        sdk.TrashAsync(file.OriginalFullPath);
+                    }
+                }
+                DeleteCompleted?.Invoke();
+            }
         }
     }
 }

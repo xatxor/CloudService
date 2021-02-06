@@ -13,6 +13,7 @@ namespace CloudService
     {
         Zipper zip;
         DiskSdkClient sdk;
+        Requester req;
         string diskpath, archname, password, folderpath, archpath;
         int days;
         public delegate void CompletedDgt();
@@ -21,13 +22,14 @@ namespace CloudService
         {
             zip = new Zipper();
             sdk = new DiskSdkClient(token);
+            req = new Requester(token);
             diskpath = diskpathin;
             archname = archnamein;
             days = daysin;
             password = passwordin;
             folderpath = folderpathin;
         }
-        public void Start()
+        public void StartAndZip()
         {
             if (Directory.Exists(folderpath))
             {
@@ -46,7 +48,17 @@ namespace CloudService
         private void SdkOnUploadCompleted(object sender, SdkEventArgs e)
         {
             File.Delete(archpath);
+            GetList();
             Completed?.Invoke();
+        }
+        private void GetList()
+        {
+            req.GetList(diskpath);
+            req.InfoCompleted += DeleteOldFiles;
+        }
+        private void DeleteOldFiles()
+        {
+            req.DeleteOldFiles(days);
         }
         private void Progress(ulong current, ulong total) { }
     }
