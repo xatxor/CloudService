@@ -47,7 +47,7 @@ namespace CloudService
             }
         }
         delegate void Del();
-        private async void CommandHandlerCompleted()
+        private void CommandHandlerCompleted()
         {
             loadinglabel.Invoke(new Del(() => loadinglabel.Visible = false));
             MessageBox.Show("Указанные в командной строке файлы отправлены!");
