@@ -41,13 +41,30 @@ namespace CloudService
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length > 1)
             {
-                loadinglabel.Visible = true;
-                CommandLineArgsHandler handler = new CommandLineArgsHandler(logform.token, args[1], args[2], Convert.ToInt32(args[3]), args[4], args[5]);
-                handler.Error += Error;
-                handler.Completed += CommandHandlerCompleted;
-                handler.StartAndZip();
+                try
+                {
+
+                    loadinglabel.Visible = true;
+                    CommandLineArgsHandler handler = new CommandLineArgsHandler(logform.token, args[1], args[2], Convert.ToInt32(args[3]), args[4], args[5]);
+                    handler.Error += Error;
+                    handler.Completed += CommandHandlerCompleted;
+                    handler.StartAndZip();
+                }catch
+                {
+                    ShowHelp(args);
+                    Application.Exit();
+                }
             }
         }
+
+        private static void ShowHelp(string[] args)
+        {
+            MessageBox.Show($"Синтаксис командной строки:\n" +
+                $"{args[0]}\nИМЯ_ПАПКИ_В_ОБЛАКЕ\nИМЯ_АРХИВА\nСКОЛЬКО_ДНЕЙ_ХРАНИТЬ_АРХИВЫ\nПАРОЛЬ\nЛОКАЛЬНАЯ_ПАПКА_БЭКАПА\n" +
+                $"\n" +
+                $"Папка в облаке с именем ИМЯ_ПАПКИ_В_ОБЛАКЕ должна быть создана заранее.");
+        }
+
         delegate void Del();
         private void Error()
         {
@@ -57,7 +74,7 @@ namespace CloudService
         private void CommandHandlerCompleted()
         {
             loadinglabel.Invoke(new Del(() => loadinglabel.Visible = false));
-            MessageBox.Show("Указанные в командной строке файлы отправлены!");
+            Application.Exit();
         }
         private void InfoCompleted()
         {
