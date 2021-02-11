@@ -46,6 +46,7 @@ namespace CloudService
         private void SendAfterZip()
         {
             var arhstream = new FileStream(archpath, FileMode.Open);
+            if (diskpath.Length > 0 && !diskpath.EndsWith("/")) diskpath = diskpath + "/";
             sdk.UploadFileAsync(diskpath + archname, arhstream, new AsyncProgress(Progress), this.SdkOnUploadCompleted);
         }
         private void SdkOnUploadCompleted(object sender, SdkEventArgs e)
