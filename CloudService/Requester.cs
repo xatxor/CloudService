@@ -53,8 +53,8 @@ namespace CloudService
                         sdk.TrashAsync(file.OriginalFullPath);
                     }
                 }
-                DeleteCompleted?.Invoke();
             }
+            DeleteCompleted?.Invoke();
         }
     }
 }

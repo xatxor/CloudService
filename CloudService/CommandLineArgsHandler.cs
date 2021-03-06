@@ -55,7 +55,6 @@ namespace CloudService
             {
                 File.Delete(archpath);
                 GetList();
-                Completed?.Invoke();
             }
             else
                 Error?.Invoke();
@@ -67,7 +66,12 @@ namespace CloudService
         }
         private void DeleteOldFiles()
         {
+            req.DeleteCompleted += AllCompleted;
             req.DeleteOldFiles(days);
+        }
+        private void AllCompleted()
+        {
+            Completed?.Invoke();
         }
         private void Progress(ulong current, ulong total) { }
     }
